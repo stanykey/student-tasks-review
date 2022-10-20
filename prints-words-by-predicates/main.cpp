@@ -1,69 +1,51 @@
 #include <iostream>
 #include <string>
-#include <vector>
-#include <iostream>
-#include <windows.h>
-#include <stdlib.h>
-#include <string.h>
 
-using namespace std;
-bool is_oval(char k)
-{
-    char mas_with_letters_to_find[6] = { 'a','e','i','o','u','y' };
-    for (int j = 0; j < 6; j++)
-    {
 
-        if (tolower(k) == mas_with_letters_to_find[j])return true;
+bool is_vowel(char letter) {
+    static const char*       VOWELS       = "aeiouy";
+    static const std::size_t VOWELS_COUNT = std::strlen(VOWELS);
+
+    for (int i = 0; i < VOWELS_COUNT; i++) {
+        if (tolower(letter) == VOWELS[i]) {
+            return true;
+        }
     }
+
     return false;
 }
-void consonants(char string_to_analize[256])
-{
+
+void process_text(const char* text) {
     int counter = 0;
-    for (int i = 0; i < sizeof(string_to_analize); i++)
-    {
-
-        if (string_to_analize[i] == ' ' || string_to_analize[i] == 0)
-        {
-            for (int j = 0; j < 6; j++)
-            {
-                if (is_oval(string_to_analize[i - 1]))
-                {
-                    break;
-                }
-                else
-                {
-                    for (int c = i - counter; c < i; c++)
-                    {
-                        cout << string_to_analize[c];
-                    }
-                    cout << endl;
+    for (int i = 0; i < std::strlen(text); i++) {
+        if (text[i] == ' ') {
+            for (int j = 0; j < 6; j++) {
+                if (is_vowel(text[i - 1])) {
                     break;
                 }
 
+                for (int c = i - counter; c < i; c++) {
+                    std::cout << text[c];
+                }
+                std::cout << std::endl;
+                break;
             }
             counter = 0;
         }
         counter++;
     }
-    int counters = 0;
-    for (int i = 0; i < sizeof(string_to_analize); i++)
-    {
 
-        if (string_to_analize[i] == ' ' || string_to_analize[i] == 0)
-        {
-            for (int j = 0; j < 6; j++)
-            {
-                if (is_oval(string_to_analize[i - 1]))
-                {
-                    for (int c = i - counters; c < i; c++)
-                    {
-                        cout << string_to_analize[c];
+    int counters = 0;
+    for (int i = 0; i < std::strlen(text); i++) {
+        if (text[i] == ' ') {
+            for (int j = 0; j < 6; j++) {
+                if (is_vowel(text[i - 1])) {
+                    for (int c = i - counters; c < i; c++) {
+                        std::cout << text[c];
                     }
-                    cout << endl;
+                    std::cout << std::endl;
                     break;
                 }
-
             }
             counters = 0;
         }
@@ -71,9 +53,10 @@ void consonants(char string_to_analize[256])
     }
 }
 
-int main()
-{
-    char string_to_analize[256];
-    cin.getline(string_to_analize, sizeof(string_to_analize), '\n');
-    consonants(string_to_analize);
+int main() {
+    static const std::size_t MAX_TEXT_LENGTH = 255;
+
+    char text[MAX_TEXT_LENGTH + 1] = {'\0'};
+    std::cin.getline(text, MAX_TEXT_LENGTH, '\n');
+    process_text(text);
 }
