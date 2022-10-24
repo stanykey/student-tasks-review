@@ -56,12 +56,12 @@ void delete_matrix(int** matrix, std::size_t dimension) {
 //
 int** sort_matrix_columns(int** matrix, std::size_t dimension) {
     for (int p = 0; p < dimension; p++) {
-        for (int col = 0; col < dimension - 1; col++) {
+        for (int col = 0; col < dimension; col++) {
             for (int row = 0; row < dimension - 1; row++) {
-                if (matrix[col][row] > matrix[col + 1][row]) {
-                    int tmp          = matrix[col][row];
-                    matrix[col][row]     = matrix[col + 1][row];
-                    matrix[col + 1][row] = tmp;
+                int& first = matrix[row][col];
+                int& second = matrix[row + 1][col];
+                if (first > second) {
+                    std::swap(first, second);
                 }
             }
         }
