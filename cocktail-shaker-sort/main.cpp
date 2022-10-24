@@ -17,10 +17,10 @@ int read_int(const char* prompt = "") {
 }
 
 void print_matrix(const int* const* matrix, std::size_t dimension, std::streamsize cell_width = 2) {
-    for (int i = 0; i < dimension; i++) {
+    for (int row = 0; row < dimension; row++) {
         std:: cout << "|";
-        for (int j = 0; j < dimension; j++) {
-            std::cout << std::setw(cell_width) << matrix[i][j] << "|";
+        for (int col = 0; col < dimension; col++) {
+            std::cout << std::setw(cell_width) << matrix[row][col] << "|";
         }
         std::cout << '\n';
     }
@@ -30,14 +30,14 @@ void print_matrix(const int* const* matrix, std::size_t dimension, std::streamsi
 
 int** generate_matrix(std::size_t dimension) {
     int** matrix = new int*[dimension];
-    for (int i = 0; i < dimension; i++) {
-        matrix[i] = new int[dimension];
+    for (int row = 0; row < dimension; row++) {
+        matrix[row] = new int[dimension];
     }
 
     static const int MaxValue = 50;
-    for (int i = 0; i < dimension; i++) {
-        for (int j = 0; j < dimension; j++) {
-            matrix[i][j] = rand() % MaxValue;
+    for (int row = 0; row < dimension; row++) {
+        for (int col = 0; col < dimension; col++) {
+            matrix[row][col] = rand() % MaxValue;
         }
     }
 
@@ -45,8 +45,8 @@ int** generate_matrix(std::size_t dimension) {
 }
 
 void delete_matrix(int** matrix, std::size_t dimension) {
-    for (int i = 0; i < dimension; i++) {
-        delete[] matrix[i];
+    for (int row = 0; row < dimension; row++) {
+        delete[] matrix[row];
     }
     delete[] matrix;
 }
@@ -56,12 +56,12 @@ void delete_matrix(int** matrix, std::size_t dimension) {
 //
 int** sort_matrix_columns(int** matrix, std::size_t dimension) {
     for (int p = 0; p < dimension; p++) {
-        for (int j = 0; j < dimension - 1; j++) {
-            for (int i = 0; i < dimension - 1; i++) {
-                if (matrix[j][i] > matrix[j + 1][i]) {
-                    int tmp          = matrix[j][i];
-                    matrix[j][i]     = matrix[j + 1][i];
-                    matrix[j + 1][i] = tmp;
+        for (int col = 0; col < dimension - 1; col++) {
+            for (int row = 0; row < dimension - 1; row++) {
+                if (matrix[col][row] > matrix[col + 1][row]) {
+                    int tmp          = matrix[col][row];
+                    matrix[col][row]     = matrix[col + 1][row];
+                    matrix[col + 1][row] = tmp;
                 }
             }
         }
