@@ -1,7 +1,7 @@
 #pragma clang diagnostic push
-#pragma ide diagnostic ignored "cppcoreguidelines-owning-memory"
-#include <iostream>
+#pragma ide diagnostic   ignored "cppcoreguidelines-owning-memory"
 #include <iomanip>
+#include <iostream>
 
 
 //
@@ -18,7 +18,7 @@ int read_int(const char* prompt = "") {
 
 void print_matrix(const int* const* matrix, std::size_t dimension, std::streamsize cell_width = 2) {
     for (int row = 0; row < dimension; row++) {
-        std:: cout << "|";
+        std::cout << "|";
         for (int col = 0; col < dimension; col++) {
             std::cout << std::setw(cell_width) << matrix[row][col] << "|";
         }
@@ -76,7 +76,7 @@ int** sort_matrix_columns(int** matrix, std::size_t dimension) {
 //
 int main() {
     const std::size_t dimension = read_int("enter matrix dimension: ");
-    int** matrix = generate_matrix(dimension);
+    int**             matrix    = generate_matrix(dimension);
     print_matrix(matrix, dimension);
 
     sort_matrix_columns(matrix, dimension);
