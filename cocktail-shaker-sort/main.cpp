@@ -1,31 +1,31 @@
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "cppcoreguidelines-owning-memory"
 #include <iostream>
+#include <iomanip>
 
 
 //
 // i/o
 //
-int read_int() {
+int read_int(const char* prompt = "") {
+    std::cout << prompt;
+
     int value = 0;
     std::cin >> value;
+    std::cout << std::endl;
     return value;
 }
 
-void print_matrix(const int* const* matrix, std::size_t dimension) {
-    int count = 0;
+void print_matrix(const int* const* matrix, std::size_t dimension, std::streamsize cell_width = 2) {
     for (int i = 0; i < dimension; i++) {
+        std:: cout << "|";
         for (int j = 0; j < dimension; j++) {
-            if (matrix[i][j] < 10) std::cout << " ";
-            std::cout << matrix[i][j] << "| ";
-            count++;
+            std::cout << std::setw(cell_width) << matrix[i][j] << "|";
         }
-
-        if (count == dimension) {
-            std::cout << "\n";
-            count = 0;
-        }
+        std::cout << '\n';
     }
+
+    std::cout << std::endl;
 }
 
 int** generate_matrix(std::size_t dimension) {
@@ -75,7 +75,7 @@ int** sort_matrix_columns(int** matrix, std::size_t dimension) {
 // application entry point
 //
 int main() {
-    const std::size_t dimension = read_int();
+    const std::size_t dimension = read_int("enter matrix dimension: ");
     int** matrix = generate_matrix(dimension);
     print_matrix(matrix, dimension);
 
