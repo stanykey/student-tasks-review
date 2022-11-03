@@ -17,9 +17,9 @@ int read_int(const char* prompt = "") {
 }
 
 void print_matrix(const int* const* matrix, std::size_t dimension, std::streamsize cell_width = 2) {
-    for (int row = 0; row < dimension; row++) {
+    for (std::size_t row = 0; row < dimension; row++) {
         std::cout << "|";
-        for (int col = 0; col < dimension; col++) {
+        for (std::size_t col = 0; col < dimension; col++) {
             std::cout << std::setw(cell_width) << matrix[row][col] << "|";
         }
         std::cout << '\n';
@@ -30,13 +30,13 @@ void print_matrix(const int* const* matrix, std::size_t dimension, std::streamsi
 
 int** generate_matrix(std::size_t dimension) {
     int** matrix = new int*[dimension];
-    for (int row = 0; row < dimension; row++) {
+    for (std::size_t row = 0; row < dimension; row++) {
         matrix[row] = new int[dimension];
     }
 
     static const int MaxValue = 50;
-    for (int row = 0; row < dimension; row++) {
-        for (int col = 0; col < dimension; col++) {
+    for (std::size_t row = 0; row < dimension; row++) {
+        for (std::size_t col = 0; col < dimension; col++) {
             matrix[row][col] = rand() % MaxValue;
         }
     }
@@ -45,7 +45,7 @@ int** generate_matrix(std::size_t dimension) {
 }
 
 void delete_matrix(int** matrix, std::size_t dimension) {
-    for (int row = 0; row < dimension; row++) {
+    for (std::size_t row = 0; row < dimension; row++) {
         delete[] matrix[row];
     }
     delete[] matrix;
@@ -55,9 +55,9 @@ void delete_matrix(int** matrix, std::size_t dimension) {
 // solution
 //
 int** sort_matrix_columns(int** matrix, std::size_t dimension) {
-    for (int p = 0; p < dimension; p++) {
-        for (int col = 0; col < dimension; col++) {
-            for (int row = 0; row < dimension - 1; row++) {
+    for (std::size_t p = 0; p < dimension; p++) {
+        for (std::size_t col = 0; col < dimension; col++) {
+            for (std::size_t row = 0; row < dimension - 1; row++) {
                 int& first = matrix[row][col];
                 int& second = matrix[row + 1][col];
                 if (first > second) {
