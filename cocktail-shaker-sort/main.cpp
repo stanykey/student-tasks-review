@@ -55,13 +55,28 @@ void delete_matrix(int** matrix, std::size_t dimension) {
 // solution
 //
 int** sort_matrix_columns(int** matrix, std::size_t dimension) {
-    for (std::size_t p = 0; p < dimension; p++) {
-        for (std::size_t col = 0; col < dimension; col++) {
+    static constexpr auto npos = static_cast<std::size_t>(-1);
+
+    for (std::size_t col = 0; col < dimension; col++) {
+        bool run = true;
+        while (run) {
+            run = false;
             for (std::size_t row = 0; row < dimension - 1; row++) {
-                int& first = matrix[row][col];
-                int& second = matrix[row + 1][col];
-                if (first > second) {
-                    std::swap(first, second);
+                if (matrix[row][col] > matrix[row + 1][col]) {
+                    std::swap(matrix[row][col], matrix[row + 1][col]);
+                    run = true;
+                }
+            }
+
+            if (!run) {
+                break;
+            }
+
+            run = false;
+            for (std::size_t row = dimension - 2; row != npos; row--) {
+                if (matrix[row][col] > matrix[row + 1][col]) {
+                    std::swap(matrix[row][col], matrix[row + 1][col]);
+                    run = true;
                 }
             }
         }
