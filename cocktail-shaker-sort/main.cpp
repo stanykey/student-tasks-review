@@ -20,7 +20,7 @@ void print_matrix(const int* const* matrix, std::size_t dimension, std::streamsi
     for (std::size_t row = 0; row < dimension; row++) {
         std::cout << "|";
         for (std::size_t col = 0; col < dimension; col++) {
-            std::cout << std::setw(cell_width) << matrix[row][col] << "|";
+            std::cout << std::setw(static_cast<int>(cell_width)) << matrix[row][col] << "|";
         }
         std::cout << '\n';
     }
