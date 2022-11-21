@@ -11,3 +11,4 @@ project(student-tasks-review CXX)
 # add task directories below
 add_subdirectory(prints-words-by-predicates)
 add_subdirectory(cocktail-shaker-sort)
+add_subdirectory(linked-lists)
