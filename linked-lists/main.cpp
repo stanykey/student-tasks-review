@@ -5,5 +5,6 @@
 
 
 int main() {
+    forward_list::demo();
     return 0;
 }
