@@ -9,8 +9,8 @@ struct stack {
     stack* next{nullptr};
 };
 
-stack* stack_new() {
-    return new stack();
+stack* stack_new(int data = 0) {
+    return new stack{data, nullptr};
 }
 
 void stack_push(stack*& top, int data) {
@@ -56,7 +56,7 @@ stack* make_stack_with_randoms(std::size_t size) {
 }
 
 void stack_print(const stack* top) {
-    while (top->next) {
+    while (top) {
         std::cout << top->data << " ";
         top = top->next;
     }
@@ -89,7 +89,9 @@ void move_greater(const stack* source, int value, stack*& destination) {
 
 void print_stack(const char* prefix, const stack* top) {
     std::cout << prefix;
-    stack_print(top);
+    if (top) {
+        stack_print(top);
+    }
     std::cout << std::endl;
 }
 
@@ -105,7 +107,7 @@ void task() {
     const int median = get_stack_median(first);
     std::cout << "median is " << median << std::endl;
 
-    stack* second = stack_new();
+    stack* second = nullptr;
     move_greater(first, median, second);
     print_stack("Second stack: ", second);
 
